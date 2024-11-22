@@ -210,9 +210,8 @@ local function check_input()
          esc_telem:update_rpm(ofs+i, math.floor(eRPM*10.0/ESC_HW_POLES:get()), 0)
          -- 0x0D is temperature + voltage + current
          esc_telem:update_telem_data(ofs+i, telem_data, 0x0D)
-         logger.write('HWES','I,PNum,RPM,Curr,Volt,InT,OutT,PCurr,MosT,CapT,Status',
-                      'BHHfffffBBH', '#-qAv--AOO-', '--00000000-',
-                      ofs+i, pnum, RPM, curr, volt, in_thr, out_thr, pcurr, mos_temp, cap_temp, status)
+         local label = string.format("HWES%d", ofs + i)
+         logger.write(label,'I,PNum,RPM,Curr,Volt,InT,OutT,PCurr,MosT,CapT,Status','BHHfffffBBH', '#-qAv--AOO-', '--00000000-', ofs + i, pnum, RPM, curr, volt, in_thr, out_thr, pcurr, mos_temp, cap_temp, status)
       end
    end
 end
